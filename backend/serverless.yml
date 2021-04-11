@@ -1,0 +1,117 @@
+service:
+  name: serverless-ontology-app
+
+plugins:
+  - serverless-webpack
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+
+  environment:
+    ONTOLOGIES_TABLE: Ontologies-${self:provider.stage}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+        - dynamodb:PutItem
+        - dynamodb:GetItem
+        - dynamodb:DeleteItem
+      Resource: arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ONTOLOGIES_TABLE}
+
+custom:
+  documentation:
+    api:
+      info:
+        version: v1.0.0
+        title: Ontology API
+        description: Serverless application for ontology data manipulation
+    models:
+      - name: OntologyRequest
+        contentType: application/json
+        schema: ${file(models/create-ontology-request.json)}
+
+functions:
+  Auth:
+    handler: src/lambda/auth/userPoolAuthorizer.handler
+
+  GetOntologies:
+    handler: src/lambda/http/getOntologies.handler
+    events:
+      - http:
+          method: get
+          path: ontologies
+          cors: true
+          authorizer: Auth
+
+  UpdateOntology:
+    handler: src/lambda/http/updateOntology.handler
+    events:
+      - http:
+          method: put
+          path: ontology
+          cors: true
+          authorizer: Auth
+
+  CreateOntology:
+    handler: src/lambda/http/createOntology.handler
+    events:
+      - http:
+          method: post
+          path: ontology
+          cors: true
+          authorizer: Auth
+          reqValidatorName: RequestBodyValidator
+          documentation:
+            summary: Create a new ontology
+            description: Create a new ontology
+            requestModels:
+              'application/json': OntologyRequest
+
+  GetOntology:
+    handler: src/lambda/http/getOntology.handler
+    events:
+      - http:
+          method: get
+          path: ontology/{id}
+          cors: true
+          authorizer: Auth
+  
+  DeleteOntology:
+    handler: src/lambda/http/deleteOntology.handler
+    events:
+      - http:
+          method: delete
+          path: ontology/{id}
+          cors: true
+          authorizer: Auth
+
+resources:
+  Resources:
+    OntologiesDynamoDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+        TableName: ${self:provider.environment.ONTOLOGIES_TABLE}
+
+    RequestBodyValidator:
+      Type: AWS::ApiGateway::RequestValidator
+      Properties:
+        Name: 'request-body-validator'
+        RestApiId:
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
+
