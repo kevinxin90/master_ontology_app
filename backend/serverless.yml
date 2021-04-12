@@ -107,6 +107,31 @@ functions:
           arn: !GetAtt OntologiesDynamoDBTable.StreamArn
     role: syncESRole
 
+
+  RecreateElasticsearch:
+    environment:
+      ES_ENDPOINT: !GetAtt OntologySearch.DomainEndpoint
+    handler: src/lambda/elasticSearch/repopulate.handler
+    events:
+      - http:
+          method: get
+          path: recreate
+          cors: true
+          authorizer: Auth
+    role: syncESRole
+  
+  searchElasticsearch:
+    handler: src/lambda/elasticSearch/query.handler
+    environment:
+      ES_ENDPOINT: !GetAtt OntologySearch.DomainEndpoint
+    events:
+      - http:
+          method: get
+          path: search/{id}
+          cors: true
+          authorizer: Auth
+    role: searchESRole
+
 resources:
   Resources:
     OntologiesDynamoDBTable:
@@ -317,6 +342,41 @@ resources:
                     - es:ESHttpDelete
                     - es:ESHttpPut
                   Resource: arn:aws:es:${self:provider.region}:*:domain/ontology-search-${self:provider.stage}
+    searchESRole:
+      Type: AWS::IAM::Role
+      Properties:
+        Path: /ontology/
+        RoleName: searchESRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: searchESPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource:
+                    - 'Fn::Join':
+                      - ':'
+                      -
+                        - 'arn:aws:logs'
+                        - Ref: 'AWS::Region'
+                        - Ref: 'AWS::AccountId'
+                        - 'log-group:/aws/lambda/*:*:*'
+                - Effect: Allow
+                  Action:
+                    - es:ESHttpGet
+                  Resource: arn:aws:es:${self:provider.region}:*:domain/ontology-search-${self:provider.stage}/*
 
     OntologySearch:
       Type: AWS::Elasticsearch::Domain
