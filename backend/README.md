@@ -1,28 +1,24 @@
-# master_ontology_app
-
-Application for managing master ontology
-
-## Backend
+# Backend
 
 The backend of the project is built based on the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
 
-### Installation/deployment instructions
+## Installation/deployment instructions
 
 Depending on your preferred package manager, follow the instructions below to deploy your project.
 
 > **Requirements**: NodeJS `lts/fermium (v.14.15.0)`. If you're using [nvm](https://github.com/nvm-sh/nvm), run `nvm use` to ensure you're using the same Node version in local and in your lambda's runtime.
 
-#### Using NPM
+### Using NPM
 
 - Run `npm i` to install the project dependencies
 - Run `npx sls deploy` to deploy this stack to AWS
 
-#### Using Yarn
+### Using Yarn
 
 - Run `yarn` to install the project dependencies
 - Run `yarn sls deploy` to deploy this stack to AWS
 
-### Project structure
+## Project structure
 
 The code base for backend is mainly located within the `backend/src` folder. This folder is divided in:
 
@@ -50,23 +46,3 @@ backend
 ├── tsconfig.paths.json         # Typescript paths
 └── webpack.config.js           # Webpack configuration
 ```
-
-## Frontend
-
-The frontend of the project is built with React.js.
-
-### Available Scripts
-
-In the `client` directory, you can run:
-
-#### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### Deployment Instructions
-
-- In `client` directory, run `amplify publish` to deploy
