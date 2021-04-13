@@ -6,6 +6,10 @@ Application for managing master ontology
 
 ![Architecture Diagram](https://raw.githubusercontent.com/kevinxin90/master_ontology_app/main/images/architecture.png?token=ACT46JWRGMZKTGKWMMHTEPLAOUPXO)
 
+## Authorization Workflow
+
+![Authorization workflow](https://raw.githubusercontent.com/kevinxin90/master_ontology_app/main/images/authorization.png?token=ACT46JU2JHGRHU53Y37SZHLAOUP6O)
+
 ## Backend
 
 The backend of the project is built based on the `aws-nodejs-typescript` template from the [Serverless framework](https://www.serverless.com/).
