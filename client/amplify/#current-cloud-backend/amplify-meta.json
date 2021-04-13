@@ -1,0 +1,51 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ontology-dev-111950-authRole",
+      "UnauthRoleArn": "arn:aws:iam::106502301400:role/amplify-ontology-dev-111950-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::106502301400:role/amplify-ontology-dev-111950-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-ontology-dev-111950-deployment",
+      "UnauthRoleName": "amplify-ontology-dev-111950-unauthRole",
+      "StackName": "amplify-ontology-dev-111950",
+      "StackId": "arn:aws:cloudformation:us-east-2:106502301400:stack/amplify-ontology-dev-111950/2e516b10-9960-11eb-bc0e-06982be86392",
+      "AmplifyAppId": "d2skpnpth3tky8"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "service": "amplifyhosting",
+      "providerPlugin": "awscloudformation",
+      "type": "manual",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ontology-dev-111950-deployment/amplify-cfn-templates/hosting/amplifyhosting-template.json",
+        "logicalId": "hostingamplifyhosting"
+      },
+      "lastPushTimeStamp": "2021-04-09T21:31:13.123Z",
+      "output": {},
+      "lastPushDirHash": "/+VZ33seFFqAr6wbtptwbINUfSA="
+    }
+  },
+  "auth": {
+    "ontology30acf3a2": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ontology-dev-111950-deployment/amplify-cfn-templates/auth/ontology30acf3a2-cloudformation-template.yml",
+        "logicalId": "authontology30acf3a2"
+      },
+      "lastPushTimeStamp": "2021-04-09T21:31:13.129Z",
+      "output": {
+        "UserPoolId": "us-east-2_G7rlIXRO1",
+        "AppClientIDWeb": "5amsgt9ragatpg48lfcifdkct6",
+        "AppClientID": "2374km2d21fshggp2b31d245la",
+        "IdentityPoolId": "us-east-2:cb782470-e4d3-4511-9199-445ba05fd6d5",
+        "IdentityPoolName": "ontology30acf3a2_identitypool_30acf3a2__dev",
+        "UserPoolName": "ontology30acf3a2_userpool_30acf3a2"
+      },
+      "lastPushDirHash": "OTmz/3ZCppLZ3CktP15l3QwG9go="
+    }
+  }
+}

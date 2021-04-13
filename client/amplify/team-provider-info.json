@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ontology-dev-111950-authRole",
+      "UnauthRoleArn": "arn:aws:iam::106502301400:role/amplify-ontology-dev-111950-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::106502301400:role/amplify-ontology-dev-111950-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-ontology-dev-111950-deployment",
+      "UnauthRoleName": "amplify-ontology-dev-111950-unauthRole",
+      "StackName": "amplify-ontology-dev-111950",
+      "StackId": "arn:aws:cloudformation:us-east-2:106502301400:stack/amplify-ontology-dev-111950/2e516b10-9960-11eb-bc0e-06982be86392",
+      "AmplifyAppId": "d2skpnpth3tky8"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2skpnpth3tky8",
+          "type": "manual"
+        }
+      },
+      "auth": {
+        "ontology30acf3a2": {}
+      }
+    }
+  }
+}
