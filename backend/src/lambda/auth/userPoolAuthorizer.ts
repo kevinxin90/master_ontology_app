@@ -57,8 +57,9 @@ export const handler = async (event: CustomAuthorizerEvent): Promise<CustomAutho
                         Action: 'execute-api:Invoke',
                         Effect: 'Allow',
                         Resource: [
-                            "arn:aws:execute-api:us-east-1:106502301400:r4fp0b9v13/*/GET/ontology/*",
-                            "arn:aws:execute-api:us-east-1:106502301400:r4fp0b9v13/*/GET/ontologies"
+                            "arn:aws:execute-api:us-east-1:*/GET/ontology/*",
+                            "arn:aws:execute-api:us-east-1:*/GET/ontologies",
+                            "arn:aws:execute-api:us-east-1:*/GET/search/*"
                         ]
                     }
                 ]
